@@ -45,31 +45,30 @@ fn select_season() -> &'static str {
 #[derive(Debug)]
 struct Item {
     code_item: u32,
-    type_item: String,
+    type_item: &'static str,
     name: String,
     size: u8,
-    color: String,
+    color: &'static str,
     available: bool,
-    season: String,
-    brand: String,
+    season: &'static str,
 }
 
 impl Item {
     fn create_item() -> Item {
         let code_item = generate_code();
-        let type_item = String::from(select_item_type());
-        let color = String::from(generate_color());
+        let type_item = select_item_type();
+        let color = generate_color();
         let size = select_size_item();
         let season = select_season();
+        let name: String = String::from(type_item) + " " + color + " " + &size.to_string() + " " + season + " -- " + &code_item.to_string();
         Item {
             code_item,
             type_item,
-            name: String::from("Slim pants"),
+            name,
             size,
             color,
             available: true,
             season,
-            brand: String::from("Levy's"),
         }
     }
 }
